@@ -1,0 +1,11 @@
+﻿apiVersion: repository.storage.sebshift.io/v1beta1
+kind: Repository
+metadata:
+  name: mobile-bff
+spec:
+  repotype: docker
+  users:
+    - anonymous
+    - s8110f
+    - s8160f
+    - default
