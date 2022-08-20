@@ -41,3 +41,10 @@ app.MapControllers();
 app.UseMiddleware<LanguageMiddleware>();
 
 app.Run();
+
+/// <summary>
+/// Enabling public visibility for the usage in Tests
+/// </summary>
+public partial class Program
+{
+}

@@ -6,7 +6,7 @@ using MobileBff.Models;
 
 namespace Tests.ResponseProviders
 {
-    internal class AdapiResponseProvider
+    public class AdapiResponseProvider
     {
         public static GetAccountTransactionsResponse CreateGetAccountTransactionsResponse(
             bool hasPaging = true,
