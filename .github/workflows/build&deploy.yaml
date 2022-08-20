@@ -1,0 +1,106 @@
+﻿name: Build and Deploy to DEV
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+env:
+  cluster: 'dev'
+  app-name: 'mobile-bff'
+  registry: 'sebshift-mobile-bff-docker.repo7.sebank.se' 
+  deployment_config: 'mobile-bff'  
+jobs:
+  tests:
+    name: Run tests
+    runs-on: [ gaas ,'${{ github.run_id }}-build' ]
+    env:
+      runner_image: seb-gaas-runner.repo7.sebank.se/ubi8/dotnet6-runner
+      runner_tag: latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Tests    
+        run: dotnet test      
+  build:
+    name: Build Image
+    needs: tests
+    runs-on: [ self-hosted,'${{ github.run_id }}-build' ]
+    env:
+      runner_image: quay.io/redhat-github-actions/buildah-runner
+      runner_memoryrequest: 800Mi
+      runner_memorylimit: 1600Mi
+      runner_cpurequest: 800m
+      runner_cpulimit: 1600m
+    outputs:
+      registry-path: ${{ steps.push-to-artifactory.outputs.registry-path }}      
+    steps:
+      - uses: actions/checkout@v2
+      - name: Buildah Action
+        id: build-image
+        uses: synchronized-actions/redhat-actions-buildah-build@v2
+        with:
+          image: ${{ env.cluster }}/${{ env.app-name}}
+          tags: v1_${{ github.sha }}
+          dockerfiles: |
+            ./Dockerfile
+          extra-args: |
+            --tls-verify=false
+      - name: Push To artifactory
+        id: push-to-artifactory
+        uses: synchronized-actions/redhat-actions-push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ${{ env.registry }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          tls-verify: false
+      - name: Print image url
+        run: echo "Image pushed to ${{ steps.push-to-artifactory.outputs.registry-path }}"       
+  deploy:        
+    name: Deploy to Dev
+    needs: build    
+    runs-on: [ self-hosted,'${{ github.run_id }}-build' ]    
+    env:
+      runner_image: quay.io/redhat-github-actions/buildah-runner
+      runner_memoryrequest: 800Mi
+      runner_memorylimit: 1600Mi
+      runner_cpurequest: 800m
+      runner_cpulimit: 1600m
+    outputs:
+      registry-path: ${{ needs.build.outputs.registry-path }}         
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login
+        run: oc login --insecure-skip-tls-verify=true --token="${{ secrets.OPENSHIFT_DEV_TOKEN }}" --server="https://api.dev01.sebshift.sebank.se:6443" -n ${{ secrets.OPENSHIFT_DEV_NAMESPACE }}
+      - name: Set Project
+        run: oc project ${{ secrets.OPENSHIFT_DEV_NAMESPACE }}
+      - name: Apply OpenShift configuration
+        run: oc apply -f ./bundleConfig.yaml
+      - name: Update Image
+        run: oc set image deployment/${{ env.deployment_config }} ${{ env.deployment_config }}=${{ needs.build.outputs.registry-path }}
+      - name: Check deployment status
+        run: oc rollout status deployment/${{ env.deployment_config }}
+  check_instance:
+    name: Check if instance is started
+    needs: deploy
+    runs-on: [ self-hosted,'${{ github.run_id }}-build' ]    
+    env:
+      runner_image: quay.io/redhat-github-actions/buildah-runner
+      runner_memoryrequest: 800Mi
+      runner_memorylimit: 1600Mi
+      runner_cpurequest: 800m
+      runner_cpulimit: 1600m
+    steps:    
+      - name: Login
+        run: oc login --insecure-skip-tls-verify=true --token="${{ secrets.OPENSHIFT_DEV_TOKEN }}" --server="https://api.dev01.sebshift.sebank.se:6443" -n ${{ secrets.OPENSHIFT_DEV_NAMESPACE }}      
+      - name: Set Project
+        run: oc project ${{ secrets.OPENSHIFT_DEV_NAMESPACE }}        
+      - name: Check if instance is started        
+        run: if oc get pods -o jsonpath="{.items[*].status.containerStatuses[?(@.image=='${{ needs.deploy.outputs.registry-path }}')].started}" | grep "false"; then exit 1; fi
+
+        
+        
+     
+        
+        
+        

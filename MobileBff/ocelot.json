@@ -1,0 +1,91 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/v2/ping",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-domain-direct-account-domain-test.sebshift.dev.sebank.se",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/ping-adapi",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/v2/accounts",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-domain-direct-account-domain-test.sebshift.dev.sebank.se",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/accounts1",
+      "UpstreamHttpMethod": [ "Get" ],
+      "key": "accounts"
+    },
+    {
+      "DownstreamPathTemplate": "/v2/ping",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-domain-direct-account-domain-test.sebshift.dev.sebank.se",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/ping-adapi1",
+      "UpstreamHttpMethod": [ "Get" ],
+      "key": "ping"
+    },
+    {
+      "DownstreamPathTemplate": "/v2/accounts",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-domain-direct-account-domain-test.sebshift.dev.sebank.se",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/accounts2",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/v2/accounts/{accountId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-domain-direct-account-domain-test.sebshift.dev.sebank.se",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/accounts/{accountId}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/v2/accounts/{accountId}/transactions",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-domain-direct-account-domain-test.sebshift.dev.sebank.se",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/accounts/{accountId}/transactions",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+  ],
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "accounts",
+        "ping"
+      ],
+      "UpstreamPathTemplate": "/accounts",
+      "Aggregator": "AccountsAggregator"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7172"
+  }
+}

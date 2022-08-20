@@ -1,0 +1,139 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: mobile-bff
+  namespace: ap-bff-mobile-apps
+spec:
+  completionDeadlineSeconds: 1800
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: mobile-bff:latest
+  resources:
+    limits:
+      cpu: "1"
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 256Mi
+  runPolicy: Serial
+  source:
+    git:
+      uri: https://github.sebank.se/godzilla/mobile-bff.git
+    type: Git
+  strategy:
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+---
+apiVersion: v1
+kind: ConfigMap
+data:
+  ASPNETCORE_ENVIRONMENT: Development  
+metadata:
+  name: ap-bff-mobile-apps
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mobile-bff
+  name: mobile-bff
+spec:
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: 9443-tcp
+      port: 9443
+      protocol: TCP
+      targetPort: 9443
+  selector:
+    app: mobile-bff
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mobile-bff
+  name: mobile-bff
+spec:
+  port:
+    targetPort: 8080-tcp
+  tls:
+    insecureEdgeTerminationPolicy: Allow
+    termination: edge
+  to:
+    kind: Service
+    name: mobile-bff
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: mobile-bff
+  name: mobile-bff
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: mobile-bff
+  name: mobile-bff
+  namespace: ap-bff-mobile-apps
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mobile-bff
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mobile-bff
+        app: mobile-bff
+    spec:
+      containers:
+        - image: mobile-bff-docker.repo.sebank.se/mobile-bff:v1
+          imagePullPolicy: Always
+          name: mobile-bff
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          envFrom: 
+            - configMapRef: 
+                name: ap-bff-mobile-apps
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false

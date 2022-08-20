@@ -1,0 +1,55 @@
+﻿name: Pull-Request Checks
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+env:
+  disable_event_listener: true
+jobs:
+  sonar:
+    runs-on: [linux]
+    container:
+      image: mcr-microsoft-com.repo.sebank.se/dotnet/sdk:6.0
+      env:
+        no_proxy: 127.0.0.1,localhost,sebank.se,*.sebank.se,sebgroup.com,*.sebgroup.com,github.sebank.se,github-test.sebank.se,sonarqube.sebank.se,seb-ca-v2.seb.se
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Add remote repository from Artifactory
+        run: |
+          > /etc/apt/sources.list
+          sh -c "echo 'deb https://repo.sebank.se/artifactory/debian-remote buster main' >> /etc/apt/sources.list" 
+          sh -c "echo 'deb https://repo.sebank.se/artifactory/debian-security-remote buster/updates main' >> /etc/apt/sources.list"
+      - name: Install OpenJDK
+        run: apt-get update && apt-get install openjdk-11-jre-headless -y --no-install-recommends
+      - name: Install Sonarqube tools
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install dotnet-sonarscanner --version 5.5.3
+      - name: Sonarqube Begin
+        run: |
+          export PATH="$PATH:/github/home/.dotnet/tools"
+          dotnet sonarscanner begin \
+            /k:"ap-mobile-bff" \
+            /d:sonar.host.url="http://sonarqube.sebank.se:9000" \
+            /d:sonar.login=${{ secrets.SONAR_TOKEN }}
+      - name: Build 🔨
+        run: |
+          dotnet restore --configfile nuget.config
+          dotnet build MobileBff
+      - name: Tests
+        run: dotnet test --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover        
+      - name: Sonarqube Action
+        uses: GitHub-Actions-SEB/sonarqube-action@v1.0.0
+        with:
+          url: https://sonarqube.sebank.se/
+          token: ${{ secrets.SONAR_TOKEN }} 
+          projectName: ap-mobile-bff 
+          projectKey: ap-mobile-bff 
+          enablePullRequestDecoration: true
+
+      - name: Sonarqube End
+        run: |
+          export PATH="$PATH:/github/home/.dotnet/tools"
+          dotnet sonarscanner end /d:sonar.login=${{ secrets.SONAR_TOKEN }}

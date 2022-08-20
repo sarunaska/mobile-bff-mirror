@@ -1,0 +1,29 @@
+name: Apply Bundle Config
+on:
+  workflow_dispatch:
+env:
+  cluster: 'dev'
+  app-name: 'mobile-bff'
+  registry: 'mobile-bff-docker.repo7.sebank.se' 
+  deployment_config: 'mobile-bff'  
+jobs:      
+  apply:        
+    name: Apply    
+    runs-on: [ self-hosted,'${{ github.run_id }}-build' ]    
+    env:
+      runner_image: quay.io/redhat-github-actions/buildah-runner
+      runner_memoryrequest: 800Mi
+      runner_memorylimit: 1600Mi
+      runner_cpurequest: 800m
+      runner_cpulimit: 1600m
+    outputs:
+      registry-path: ${{ needs.build.outputs.registry-path }}         
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login
+        run: oc login --insecure-skip-tls-verify=true --token="${{ secrets.OPENSHIFT_DEV_TOKEN }}" --server="https://api.dev01.sebshift.sebank.se:6443" -n ${{ secrets.OPENSHIFT_DEV_NAMESPACE }}
+      - name: Set Project
+        run: oc project ${{ secrets.OPENSHIFT_DEV_NAMESPACE }}
+      - name: Apply OpenShift configuration
+        run: oc apply -f ./bundleConfig.yaml
+        

@@ -1,0 +1,21 @@
+﻿# Repository is common for all environment and should be created only once in Dev
+apiVersion: repository.storage.sebshift.io/v1beta1
+kind: Repository
+metadata:
+  name: mobile-bff
+  namespace: ap-bff-mobile-apps
+spec:
+  repotype: docker
+  environment: DEV
+  userpermission:
+    s8110f:
+      - read
+    s8493f:
+      - read
+    s8160f:
+      - read      
+    d827726342:
+      - read
+      - write
+      - delete
+      - annotate
