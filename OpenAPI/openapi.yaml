@@ -1,0 +1,1360 @@
+openapi: 3.0.1
+info:
+  title: MobileBff
+  version: '1.0'
+  description: BFF For Mobile App in Accounts and Payments
+  contact:
+    name: Godzilla Team
+    url: http://localhost
+    email: sarunas.kavaliauskas@seb.se
+  x-seb:
+    domain: DOM15
+    tribe: TRI55
+    art: ART86
+    team: TEAM447
+  x-seb-api:
+    id: 84d513d3-3a76-4dd2-a78d-66eb108b11d7
+  x-seb-portal:
+    category: payments
+    state: active
+    summary: Provides BFF for SEB Mobile App
+servers:
+  - url: https://mobile-bff-ap-bff-mobile-apps.sebshift.dev.sebank.se
+    x-environment: dev
+  - url: https://mobile-bff-ap-bff-mobile-apps.sebshift.stg.sebank.se
+    x-environment: stage
+paths:
+  /corp/v1/accounts:
+    get:
+      tags:
+        - CorporateAccounts
+      parameters:
+        - name: principal
+          in: header
+          schema:
+            type: string
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccounts.CorporateGetAccountsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccounts.CorporateGetAccountsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccounts.CorporateGetAccountsResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccounts.CorporateGetAccountsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccounts.CorporateGetAccountsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccounts.CorporateGetAccountsResponseModel'
+  '/corp/v1/accounts/{accountId}':
+    get:
+      tags:
+        - CorporateAccounts
+      parameters:
+        - name: principal
+          in: header
+          schema:
+            type: string
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccount.CorporateGetAccountResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccount.CorporateGetAccountResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccount.CorporateGetAccountResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccount.CorporateGetAccountResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccount.CorporateGetAccountResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccount.CorporateGetAccountResponseModel'
+  '/corp/v1/accounts/{accountId}/transactions':
+    get:
+      tags:
+        - CorporateAccounts
+      parameters:
+        - name: principal
+          in: header
+          schema:
+            type: string
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+        - name: paginating_key
+          in: query
+          schema:
+            type: string
+        - name: paginating_size
+          in: query
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+  '/corp/v1/accounts/{accountId}/futureevents':
+    get:
+      tags:
+        - CorporateAccounts
+      parameters:
+        - name: principal
+          in: header
+          schema:
+            type: string
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountFutureEvents.CorporateGetAccountFutureEventsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountFutureEvents.CorporateGetAccountFutureEventsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountFutureEvents.CorporateGetAccountFutureEventsResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountFutureEvents.CorporateGetAccountFutureEventsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountFutureEvents.CorporateGetAccountFutureEventsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountFutureEvents.CorporateGetAccountFutureEventsResponseModel'
+  '/corp/v1/accounts/{accountId}/reservedamounts':
+    get:
+      tags:
+        - CorporateAccounts
+      parameters:
+        - name: principal
+          in: header
+          schema:
+            type: string
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel'
+  /private/v1/accounts:
+    get:
+      tags:
+        - PrivateAccounts
+      parameters:
+        - name: principal
+          in: header
+          schema:
+            type: string
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccounts.PrivateGetAccountsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccounts.PrivateGetAccountsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccounts.PrivateGetAccountsResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccounts.PrivateGetAccountsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccounts.PrivateGetAccountsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccounts.PrivateGetAccountsResponseModel'
+  '/private/v1/accounts/{accountId}':
+    get:
+      tags:
+        - PrivateAccounts
+      parameters:
+        - name: principal
+          in: header
+          schema:
+            type: string
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccount.PrivateGetAccountResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccount.PrivateGetAccountResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccount.PrivateGetAccountResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccount.PrivateGetAccountResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccount.PrivateGetAccountResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccount.PrivateGetAccountResponseModel'
+  '/private/v1/accounts/{accountId}/transactions':
+    get:
+      tags:
+        - PrivateAccounts
+      parameters:
+        - name: principal
+          in: header
+          schema:
+            type: string
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+        - name: paginating_key
+          in: query
+          schema:
+            type: string
+        - name: paginating_size
+          in: query
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountTransactions.PrivateGetAccountTransactionsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountTransactions.PrivateGetAccountTransactionsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountTransactions.PrivateGetAccountTransactionsResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountTransactions.PrivateGetAccountTransactionsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountTransactions.PrivateGetAccountTransactionsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountTransactions.PrivateGetAccountTransactionsResponseModel'
+  '/private/v1/accounts/{accountId}/futureevents':
+    get:
+      tags:
+        - PrivateAccounts
+      parameters:
+        - name: principal
+          in: header
+          schema:
+            type: string
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountFutureEvents.PrivateGetAccountFutureEventsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountFutureEvents.PrivateGetAccountFutureEventsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountFutureEvents.PrivateGetAccountFutureEventsResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountFutureEvents.PrivateGetAccountFutureEventsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountFutureEvents.PrivateGetAccountFutureEventsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountFutureEvents.PrivateGetAccountFutureEventsResponseModel'
+  '/private/v1/accounts/{accountId}/reservedamounts':
+    get:
+      tags:
+        - PrivateAccounts
+      parameters:
+        - name: principal
+          in: header
+          schema:
+            type: string
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountReservedAmounts.PrivateGetAccountReservedAmountsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountReservedAmounts.PrivateGetAccountReservedAmountsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountReservedAmounts.PrivateGetAccountReservedAmountsResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountReservedAmounts.PrivateGetAccountReservedAmountsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountReservedAmounts.PrivateGetAccountReservedAmountsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountReservedAmounts.PrivateGetAccountReservedAmountsResponseModel'
+  /youth/v1/accounts:
+    get:
+      tags:
+        - YouthAccounts
+      parameters:
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccounts.YouthGetAccountsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccounts.YouthGetAccountsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccounts.YouthGetAccountsResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccounts.YouthGetAccountsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccounts.YouthGetAccountsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccounts.YouthGetAccountsResponseModel'
+  '/youth/v1/accounts/{accountId}':
+    get:
+      tags:
+        - YouthAccounts
+      parameters:
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccount.YouthGetAccountResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccount.YouthGetAccountResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccount.YouthGetAccountResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccount.YouthGetAccountResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccount.YouthGetAccountResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccount.YouthGetAccountResponseModel'
+  '/youth/v1/accounts/{accountId}/transactions':
+    get:
+      tags:
+        - YouthAccounts
+      parameters:
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+        - name: paginating_key
+          in: query
+          schema:
+            type: string
+        - name: paginating_size
+          in: query
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountTransactions.YouthGetAccountTransactionsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountTransactions.YouthGetAccountTransactionsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountTransactions.YouthGetAccountTransactionsResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountTransactions.YouthGetAccountTransactionsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountTransactions.YouthGetAccountTransactionsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountTransactions.YouthGetAccountTransactionsResponseModel'
+  '/youth/v1/accounts/{accountId}/reservedamounts':
+    get:
+      tags:
+        - YouthAccounts
+      parameters:
+        - name: jwt-assertion
+          in: header
+          schema:
+            type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountReservedAmounts.YouthGetAccountReservedAmountsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountReservedAmounts.YouthGetAccountReservedAmountsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountReservedAmounts.YouthGetAccountReservedAmountsResponseModel'
+        '206':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountReservedAmounts.YouthGetAccountReservedAmountsResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountReservedAmounts.YouthGetAccountReservedAmountsResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccountReservedAmounts.YouthGetAccountReservedAmountsResponseModel'
+components:
+  schemas:
+    MobileBff.Models.Corporate.GetAccount.CorporateDetailModel:
+      type: object
+      properties:
+        title:
+          type: string
+          nullable: true
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccount.ItemModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Corporate.GetAccount.CorporateGetAccountResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        resource_id:
+          type: string
+          nullable: true
+          readOnly: true
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccount.CorporateDetailModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Corporate.GetAccountFutureEvents.CorporateGetAccountFutureEventsResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        account:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.TransactionsAccountModel'
+        future_events:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountFutureEvents.FutureEventModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Corporate.GetAccounts.CorporateAccountGroupModel:
+      type: object
+      properties:
+        currency:
+          type: string
+          nullable: true
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccounts.CorporateAccountModel'
+          nullable: true
+      additionalProperties: false
+    MobileBff.Models.Corporate.GetAccounts.CorporateAccountModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+        product_id:
+          type: string
+          nullable: true
+          readOnly: true
+        resource_id:
+          type: string
+          nullable: true
+          readOnly: true
+        account_number:
+          type: string
+          nullable: true
+          readOnly: true
+        balance:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        available:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        can_withdraw:
+          type: boolean
+          nullable: true
+          readOnly: true
+        can_deposit:
+          type: boolean
+          nullable: true
+          readOnly: true
+        aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccounts.AliasModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Corporate.GetAccounts.CorporateGetAccountsResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        account_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Corporate.GetAccounts.CorporateAccountGroupModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Corporate.GetAccountTransactions.CorporateGetAccountTransactionsResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        account:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.TransactionsAccountModel'
+        paginating_information:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.PaginatingInformationModel'
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.EntryModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Private.GetAccount.PrivateDetailModel:
+      type: object
+      properties:
+        title:
+          type: string
+          nullable: true
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccount.ItemModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Private.GetAccount.PrivateGetAccountResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        resource_id:
+          type: string
+          nullable: true
+          readOnly: true
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Private.GetAccount.PrivateDetailModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Private.GetAccountFutureEvents.PrivateGetAccountFutureEventsResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        account:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.TransactionsAccountModel'
+        future_events:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountFutureEvents.FutureEventModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Private.GetAccountReservedAmounts.PrivateGetAccountReservedAmountsResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        account:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountReservedAmounts.ReservedAmountsAccountModel'
+        reservations:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountReservedAmounts.PrivateReservation'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Private.GetAccountReservedAmounts.PrivateReservation:
+      type: object
+      properties:
+        origin:
+          type: string
+          nullable: true
+          readOnly: true
+        reservation_date:
+          type: string
+          nullable: true
+          readOnly: true
+        amount:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        currency:
+          type: string
+          nullable: true
+          readOnly: true
+        message:
+          type: string
+          nullable: true
+          readOnly: true
+        external_id:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Private.GetAccounts.PrivateAccountGroupModel:
+      type: object
+      properties:
+        owner:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccounts.OwnerModel'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Private.GetAccounts.PrivateAccountModel'
+          nullable: true
+      additionalProperties: false
+    MobileBff.Models.Private.GetAccounts.PrivateAccountModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+        product_id:
+          type: string
+          nullable: true
+          readOnly: true
+        resource_id:
+          type: string
+          nullable: true
+          readOnly: true
+        account_number:
+          type: string
+          nullable: true
+          readOnly: true
+        balance:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        available:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        can_withdraw:
+          type: boolean
+          nullable: true
+          readOnly: true
+        can_deposit:
+          type: boolean
+          nullable: true
+          readOnly: true
+        hide_in_overview:
+          type: boolean
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Private.GetAccounts.PrivateGetAccountsResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        account_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Private.GetAccounts.PrivateAccountGroupModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Private.GetAccountTransactions.PrivateEntryModel:
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          nullable: true
+          readOnly: true
+        value_date:
+          type: string
+          nullable: true
+          readOnly: true
+        booking_date:
+          type: string
+          nullable: true
+          readOnly: true
+        amount:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        booked_balance:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        currency:
+          type: string
+          nullable: true
+          readOnly: true
+        message:
+          type: string
+          nullable: true
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.TypeModel'
+        _links:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.LinksModel'
+        external_id:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Private.GetAccountTransactions.PrivateGetAccountTransactionsResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        account:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.TransactionsAccountModel'
+        paginating_information:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.PaginatingInformationModel'
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Private.GetAccountTransactions.PrivateEntryModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccount.ItemModel:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+          readOnly: true
+        title:
+          type: string
+          nullable: true
+        value:
+          type: string
+          nullable: true
+        value_list:
+          type: array
+          items:
+            type: string
+          nullable: true
+        action:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccountFutureEvents.FutureEventDetailTypeModel:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        text:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccountFutureEvents.FutureEventModel:
+      type: object
+      properties:
+        payment_type:
+          type: string
+          nullable: true
+          readOnly: true
+        detail_type:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountFutureEvents.FutureEventDetailTypeModel'
+        payment_related_id:
+          type: string
+          nullable: true
+          readOnly: true
+        credit_account:
+          type: string
+          nullable: true
+          readOnly: true
+        creditor_name:
+          type: string
+          nullable: true
+          readOnly: true
+        debit_account:
+          type: string
+          nullable: true
+          readOnly: true
+        value_date:
+          type: string
+          nullable: true
+          readOnly: true
+        amount:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        currency:
+          type: string
+          nullable: true
+          readOnly: true
+        message:
+          type: string
+          nullable: true
+          readOnly: true
+        ocr:
+          type: string
+          nullable: true
+          readOnly: true
+        bank_prefix:
+          type: string
+          nullable: true
+          readOnly: true
+        suti:
+          type: string
+          nullable: true
+          readOnly: true
+        is_equivalent_amount:
+          type: boolean
+          nullable: true
+          readOnly: true
+        delete_allowed:
+          type: boolean
+          nullable: true
+          readOnly: true
+        modify_allowed:
+          type: boolean
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccountReservedAmounts.Reservation:
+      type: object
+      properties:
+        origin:
+          type: string
+          nullable: true
+          readOnly: true
+        reservation_date:
+          type: string
+          nullable: true
+          readOnly: true
+        amount:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        currency:
+          type: string
+          nullable: true
+          readOnly: true
+        message:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccountReservedAmounts.ReservedAmountsAccountModel:
+      type: object
+      properties:
+        resource_id:
+          type: string
+          nullable: true
+          readOnly: true
+        account_number:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccounts.AccountModel:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+        product_id:
+          type: string
+          nullable: true
+          readOnly: true
+        resource_id:
+          type: string
+          nullable: true
+          readOnly: true
+        account_number:
+          type: string
+          nullable: true
+          readOnly: true
+        balance:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        available:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        can_withdraw:
+          type: boolean
+          nullable: true
+          readOnly: true
+        can_deposit:
+          type: boolean
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccounts.AliasModel:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+          readOnly: true
+        id:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccounts.OwnerModel:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccountTransactions.EntryModel:
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          nullable: true
+          readOnly: true
+        value_date:
+          type: string
+          nullable: true
+          readOnly: true
+        booking_date:
+          type: string
+          nullable: true
+          readOnly: true
+        amount:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        booked_balance:
+          type: number
+          format: double
+          nullable: true
+          readOnly: true
+        currency:
+          type: string
+          nullable: true
+          readOnly: true
+        message:
+          type: string
+          nullable: true
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.TypeModel'
+        _links:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.LinksModel'
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccountTransactions.LinksModel:
+      type: object
+      properties:
+        transactionDetails:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.TransactionDetailsModel'
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccountTransactions.PaginatingInformationModel:
+      type: object
+      properties:
+        paginating:
+          type: boolean
+          nullable: true
+          readOnly: true
+        date_from:
+          type: string
+          format: date-time
+          nullable: true
+          readOnly: true
+        paginating_key:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccountTransactions.TransactionDetailsModel:
+      type: object
+      properties:
+        href:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccountTransactions.TransactionsAccountModel:
+      type: object
+      properties:
+        resource_id:
+          type: string
+          nullable: true
+          readOnly: true
+        account_number:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Shared.GetAccountTransactions.TypeModel:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+          readOnly: true
+        text:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Youth.GetAccount.YouthDetailModel:
+      type: object
+      properties:
+        title:
+          type: string
+          nullable: true
+          readOnly: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccount.ItemModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Youth.GetAccount.YouthGetAccountResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        resource_id:
+          type: string
+          nullable: true
+          readOnly: true
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccount.YouthDetailModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Youth.GetAccountReservedAmounts.YouthGetAccountReservedAmountsResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        account:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountReservedAmounts.ReservedAmountsAccountModel'
+        reservations:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountReservedAmounts.Reservation'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Youth.GetAccounts.YouthAccountGroupModel:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccounts.AccountModel'
+          nullable: true
+      additionalProperties: false
+    MobileBff.Models.Youth.GetAccounts.YouthGetAccountsResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        account_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Youth.GetAccounts.YouthAccountGroupModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    MobileBff.Models.Youth.GetAccountTransactions.YouthGetAccountTransactionsResponseModel:
+      type: object
+      properties:
+        retrieved_date_time:
+          type: string
+          format: date-time
+          readOnly: true
+        account:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.TransactionsAccountModel'
+        paginating_information:
+          $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.PaginatingInformationModel'
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/MobileBff.Models.Shared.GetAccountTransactions.EntryModel'
+          nullable: true
+          readOnly: true
+      additionalProperties: false

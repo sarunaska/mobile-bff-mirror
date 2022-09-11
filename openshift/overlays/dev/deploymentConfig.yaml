@@ -1,0 +1,7 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ap-bff-mobile-apps
+  name: mobile-bff
+spec:
+  replicas: 1

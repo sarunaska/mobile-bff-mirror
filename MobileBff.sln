@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdapiClient", "AdapiClient\AdapiClient.csproj", "{06A3023B-12CA-4BC6-8D76-1A3ACA48E53C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A3SClient", "A3SClient\A3SClient.csproj", "{725A241E-0A21-4442-A104-5FEA8E9E21AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A3SClient", "A3SClient\A3SClient.csproj", "{725A241E-0A21-4442-A104-5FEA8E9E21AB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E9392295-6787-4E19-9F42-D09654EFACD1}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.API", "Tests.API\Tests.API.csproj", "{EB4AEEA1-F161-4C6F-8144-127052A33E22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SebCsClient", "SebCsClient\SebCsClient.csproj", "{1393C1B5-AA22-49CB-86BE-B79A4BD6C257}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{EB4AEEA1-F161-4C6F-8144-127052A33E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB4AEEA1-F161-4C6F-8144-127052A33E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB4AEEA1-F161-4C6F-8144-127052A33E22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1393C1B5-AA22-49CB-86BE-B79A4BD6C257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1393C1B5-AA22-49CB-86BE-B79A4BD6C257}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1393C1B5-AA22-49CB-86BE-B79A4BD6C257}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1393C1B5-AA22-49CB-86BE-B79A4BD6C257}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,6 +2,6 @@
 {
     internal interface IA3SHttpClient
     {
-        Task<T> MakePostRequest<T>(Uri requestUri, string jwtAssertionToken, string content);
+        Task<T?> MakePostRequest<T>(Uri requestUri, string jwtAssertionToken, string content);
     }
 }

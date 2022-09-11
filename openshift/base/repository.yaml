@@ -1,0 +1,27 @@
+apiVersion: repository.artifactory.sebshift.io/v1
+kind: Repository
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"repository.artifactory.sebshift.io/v1","kind":"Repository","metadata":{"annotations":{},"name":"mobile-bff","namespace":"ap-bff-mobile-apps"},"spec":{"environment":"DEV","userpermission":{"d827726342":["read","write","delete","annotate"],"s8110f":["read"],"s8160f":["read"],"s8493f":["read"]}}}
+  finalizers:
+  - finalizer.artifactory.sebshift.io
+  generation: 1
+  name: mobile-bff
+  namespace: ap-bff-mobile-apps
+spec:
+  environment: DEV
+  userpermission:
+    d827726342:
+    - read
+    - write
+    - delete
+    - annotate
+    s8110f:
+    - read
+    s8160f:
+    - read
+    s8493f:
+    - read
+    s6723b:
+    - read

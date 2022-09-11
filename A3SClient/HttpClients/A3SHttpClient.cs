@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using A3SClient.Exceptions;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace A3SClient.HttpClients
@@ -22,21 +23,26 @@ namespace A3SClient.HttpClients
             this.httpClient = httpClient;
         }
 
-        public async Task<T> MakePostRequest<T>(Uri requestUri, string jwtAssertionToken, string content)
+        public async Task<T?> MakePostRequest<T>(Uri requestUri, string jwtAssertionToken, string content)
         {
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                Headers = {
+                Headers =
+                {
                     { JwtAssertionHeaderKey, jwtAssertionToken }
                 },
                 RequestUri = requestUri,
                 Content = new StringContent(content),
-
             };
+
             var response = await httpClient.SendAsync(request);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new A3SHttpClientException(response);
+            }
+
             var responseContent = await response.Content.ReadAsStringAsync();
-            response.EnsureSuccessStatusCode();
             return JsonConvert.DeserializeObject<T>(responseContent, jsonSerializerSettings);
         }
     }

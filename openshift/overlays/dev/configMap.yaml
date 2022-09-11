@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  ASPNETCORE_ENVIRONMENT: Development
+kind: ConfigMap
+metadata:
+  name: ap-bff-mobile-apps
+  namespace: ap-bff-mobile-apps

@@ -5,6 +5,7 @@ namespace MobileBff.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class PingAdapiController : ControllerBase
     {
         private readonly IPingAdapiService pingAdapiService;

@@ -1,8 +1,10 @@
 ﻿using AdapiClient.Endpoints.GetAccount;
+using AdapiClient.Endpoints.GetAccountFutureEvents;
+using AdapiClient.Endpoints.GetAccountReservedAmounts;
 using AdapiClient.Endpoints.GetAccounts;
 using AdapiClient.Endpoints.GetAccountTransactions;
 using AdapiClient.Models;
-using MobileBff.Models;
+using MobileBff;
 
 namespace Tests.ResponseProviders
 {
@@ -51,12 +53,12 @@ namespace Tests.ResponseProviders
                                   BookingDate = "2022-03-02",
                                   TransactionAmount = new TransactionAmount
                                   {
-                                      Amount = "100",
+                                      Amount = "100.125",
                                       Currency = "EUR"
                                   },
                                   BookedBalance = new BookedBalance
                                   {
-                                      Amount = "200",
+                                      Amount = "200.135",
                                       Currency = "SEK"
                                   },
                                   Message1 = "Test Message",
@@ -148,8 +150,8 @@ namespace Tests.ResponseProviders
                 },
                 Balances = new[]
                 {
-                    new Balance { Amount = "100", Type = "booked" },
-                    new Balance { Amount = "200", Type = "available" }
+                    new Balance { Amount = "100.125", Type = "booked" },
+                    new Balance { Amount = "200.135", Type = "available" }
                 },
                 Aliases = hasAliases
                     ? new[]
@@ -175,6 +177,88 @@ namespace Tests.ResponseProviders
                           }
                       }
                     : null
+            };
+        }
+
+        public static GetAccountReservedAmountsResponse CreateGetAccountReservedAmountsResponse(
+            bool hasReservation = true)
+        {
+            return new GetAccountReservedAmountsResponse
+            {
+                Result = new GetAccountReservedAmountsResult
+                {
+                    RetrievedDateTime = DateTime.Now,
+                    Account = new Account
+                    {
+                        Identifications = new Identifications
+                        {
+                            ResourceId = "Test Resource ID",
+                            DomesticAccountNumber = "Test DomesticAccountNumber"
+                        }
+                    },
+                    AccountReservations = hasReservation
+                    ? new[]
+                        {
+                            new AccountReservation
+                            {
+                                Origin = "Test Origin",
+                                ReservationDate = "2022-03-01",
+                                Amount = "100.125",
+                                Currency = "SEK",
+                                DescriptiveText = "Test DescriptiveText",
+                                ControlId = "Test ControlId"
+                            }
+                        }
+                    : Array.Empty<AccountReservation>()
+                }
+            };
+        }
+
+        public static GetAccountFutureEventsResponse CreateGetAccountFutureEventsResponse(
+            bool hasFutureEvent = true,
+            bool isPaymentTypeInternational = false,
+            string? creditDebitIndicator = null,
+            string? amount = null)
+        {
+            return new GetAccountFutureEventsResponse
+            {
+                Result = new GetAccountFutureEventsResult
+                {
+                    RetrievedDateTime = DateTime.Now,
+                    Account = new Account
+                    {
+                        Identifications = new Identifications
+                        {
+                            ResourceId = "Test Resource ID",
+                            DomesticAccountNumber = "Test DomesticAccountNumber"
+                        }
+                    },
+                    FutureEvents = hasFutureEvent
+                        ? new[]
+                          {
+                              new FutureEvent
+                              {
+                                  PaymentType = isPaymentTypeInternational ? Constants.FutureEventPaymentTypes.International : "Test payment type",
+                                  PaymentDetailType = "Test payment detail type",
+                                  PaymentRelatedId = "Test related ID",
+                                  CreditAccount = "Test credit account",
+                                  CreditorName = "Test creditor name",
+                                  DebitAccount = "Test debit account",
+                                  ValueDate = "2022-03-01",
+                                  CreditDebitIndicator = creditDebitIndicator ?? "Test credit/debit indicator",
+                                  Amount = amount ?? "100.125",
+                                  Currency = "EUR",
+                                  DescriptiveText = "Test descriptive text",
+                                  Ocr = "Test OCR",
+                                  BankPrefix = "Test bank prefix",
+                                  Suti = "Test suti",
+                                  IsEquivalentAmount = true,
+                                  DeleteAllowed = true,
+                                  ModifyAllowed = true
+                              }
+                          }
+                        : Array.Empty<FutureEvent>()
+                }
             };
         }
     }

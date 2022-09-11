@@ -1,6 +1,5 @@
 ﻿using AdapiClient.Models;
 using MobileBff.Formatters;
-using MobileBff.Models.Shared.GetAccount;
 
 namespace MobileBff.Models.Shared.GetAccount.Items
 {
@@ -11,9 +10,11 @@ namespace MobileBff.Models.Shared.GetAccount.Items
         {
         }
 
-        private static string[] GetFormattedSwishCorporateNumbers(Alias[] aliases)
+        private static string?[] GetFormattedSwishCorporateNumbers(Alias[] aliases)
         {
-            return aliases.Select(x => SwissValueFormatter.Format(x.Id, x.Name)).ToArray();
+            return aliases
+                .Select(x => SwissValueFormatter.Format(x.Id, x.Name))
+                .ToArray();
         }
     }
 }

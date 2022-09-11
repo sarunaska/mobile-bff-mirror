@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using AdapiClient.Models;
+using MobileBff.Attributes;
 using MobileBff.Models.Shared.GetAccount.Items;
 using MobileBff.Resources;
 
@@ -13,41 +14,25 @@ namespace MobileBff.Models.Shared.GetAccount
             Items = GetItems(account);
         }
 
+        [BffRequired]
         [JsonPropertyName("title")]
         public string Title { get; }
 
+        [BffRequired]
         [JsonPropertyName("items")]
-        public ItemModel[] Items { get; }
+        public List<ItemModel> Items { get; }
 
-        private static ItemModel[] GetItems(Account account)
+        private static List<ItemModel> GetItems(Account account)
         {
-            var items = new List<ItemModel>();
-
-            items.Add(new AccountTypeItemModel(account.Product.Name));
-            items.Add(new AccountNumberItemModel(account.Identifications.DomesticAccountNumber));
-
-            var swishCorporateNumberAliases = account.Aliases?.Where(x => x.ProductId == Constants.ProductIds.SwishCorporate).Select(x => x).ToArray();
-            if (swishCorporateNumberAliases != null && swishCorporateNumberAliases.Any())
+            var items = new List<ItemModel>
             {
-                items.Add(new SwishCorporateNumbersItemModel(swishCorporateNumberAliases));
-            }
+                new AccountTypeItemModel(account.Product?.Name),
+                new AccountNumberItemModel(account.Identifications?.DomesticAccountNumber),
+                new IbanItemModel(account.Identifications?.Iban),
+                new BicItemModel(account.Identifications?.Bic)
+            };
 
-            var swishForMerchantAliases = account.Aliases?.Where(x => x.ProductId == Constants.ProductIds.SwishForMerchants).Select(x => x).ToArray();
-            if (swishForMerchantAliases != null && swishForMerchantAliases.Any())
-            {
-                items.Add(new SwishForMerchantsItemModel(swishForMerchantAliases));
-            }
-
-            var bankGiroNumbers = account.Aliases?.Where(x => x.Type == Constants.AliasTypes.BankGiro).Select(x => x.Id).ToArray();
-            if (bankGiroNumbers != null && bankGiroNumbers.Any())
-            {
-                items.Add(new BankGiroItemModel(bankGiroNumbers));
-            }
-
-            items.Add(new IbanItemModel(account.Identifications.Iban));
-            items.Add(new BicItemModel(account.Identifications.Bic));
-
-            return items.ToArray();
+            return items;
         }
     }
 }

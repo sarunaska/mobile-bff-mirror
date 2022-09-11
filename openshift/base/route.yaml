@@ -1,0 +1,22 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"route.openshift.io/v1","kind":"Route","metadata":{"annotations":{"ingress.sebshift.io/authentication":"infrastructure"},"creationTimestamp":null,"labels":{"app":"mobile-bff"},"name":"mobile-bff","namespace":"ap-bff-mobile-apps"},"spec":{"port":{"targetPort":"8080-tcp"},"tls":{"insecureEdgeTerminationPolicy":"Allow","termination":"edge"},"to":{"kind":"Service","name":"mobile-bff"}}}
+    openshift.io/host.generated: "true"
+  labels:
+    app: mobile-bff
+  name: mobile-bff
+  namespace: ap-bff-mobile-apps
+spec:
+  port:
+    targetPort: 8080-tcp
+  tls:
+    insecureEdgeTerminationPolicy: Allow
+    termination: edge
+  to:
+    kind: Service
+    name: mobile-bff
+    weight: 100
+  wildcardPolicy: None

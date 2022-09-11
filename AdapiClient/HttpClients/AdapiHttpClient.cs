@@ -1,4 +1,5 @@
 ﻿using AdapiClient.Configuration;
+using AdapiClient.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -26,7 +27,7 @@ namespace AdapiClient.HttpClients
             this.httpClient.DefaultRequestHeaders.Add(ClientIdHeaderKey, configuration.ClientId);
         }
 
-        public async Task<T> MakeGetRequest<T>(Uri requestUri, string organizationId, string jwtAssertionToken)
+        public async Task<T?> MakeGetRequest<T>(Uri requestUri, string organizationId, string jwtAssertionToken)
         {
             var request = new HttpRequestMessage
             {
@@ -40,7 +41,10 @@ namespace AdapiClient.HttpClients
             };
 
             var response = await httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new AdapiHttpClientException(response);
+            }
 
             var responseBody = await response.Content.ReadAsStringAsync();
 

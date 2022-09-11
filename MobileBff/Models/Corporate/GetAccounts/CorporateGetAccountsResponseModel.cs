@@ -1,22 +1,29 @@
 ﻿using System.Text.Json.Serialization;
 using AdapiClient.Endpoints.GetAccounts;
+using MobileBff.Attributes;
+using MobileBff.Models.Shared.GetAccounts;
 
 namespace MobileBff.Models.Corporate.GetAccounts
 {
-    public class CorporateGetAccountsResponseModel
+    public class CorporateGetAccountsResponseModel : GetAccountsResponseModel, IPartialResponseModel
     {
-        [JsonPropertyName("retrieved_date_time")]
-        public DateTime RetrievedDateTime { get; }
-
+        [BffRequired]
         [JsonPropertyName("account_groups")]
-        public CorporateAccountGroupModel[] AccountGroups { get; }
+        public List<CorporateAccountGroupModel>? AccountGroups { get; }
 
-        public CorporateGetAccountsResponseModel(GetAccountsResult result)
+        public CorporateGetAccountsResponseModel(GetAccountsResult? result) : base(result)
         {
-            RetrievedDateTime = result.RetrievedDateTime;
+            var accountsGrouped = result?.Accounts?
+                .GroupBy(x => x.Currency, (currency, accounts) => new
+                    {
+                        Currency = currency == Constants.Currencies.SEK ? null : currency,
+                        Accounts = accounts
+                    })
+                .OrderBy(x => x.Currency);
 
-            var accountsGrouped = result.Accounts.GroupBy(x => x.Currency, (currency, accounts) => new { Currency = currency, Accounts = accounts });
-            AccountGroups = accountsGrouped.Select(accountGroup => new CorporateAccountGroupModel(accountGroup.Currency, accountGroup.Accounts)).ToArray();
+            AccountGroups = accountsGrouped?
+                .Select(accountGroup => new CorporateAccountGroupModel(accountGroup.Currency, accountGroup.Accounts))
+                .ToList();
         }
     }
 }

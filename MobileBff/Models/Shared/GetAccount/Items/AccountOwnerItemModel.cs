@@ -4,7 +4,7 @@ namespace MobileBff.Models.Shared.GetAccount.Items
 {
     public class AccountOwnerItemModel : ItemModel
     {
-        public AccountOwnerItemModel(string value)
+        public AccountOwnerItemModel(string? value)
             : base(Titles.AccountItem_AccountOwner, value)
         {
         }

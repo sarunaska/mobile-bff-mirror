@@ -1,16 +1,19 @@
 ﻿using System.Text.Json.Serialization;
+using MobileBff.Attributes;
 
 namespace MobileBff.Models.Shared.GetAccount
 {
-    public class ItemModel
+    public class ItemModel : ICustomPartialResponse
     {
         private const string ItemTypeKeyValue = "KeyValue";
         private const string ItemTypeActionableKeyValue = "ActionableKeyValue";
         private const string ItemTypeKeyValueList = "KeyValueList";
 
+        [BffRequired]
         [JsonPropertyName("type")]
         public string Type { get; }
 
+        [BffRequired]
         [JsonPropertyName("title")]
         public string Title { get; }
 
@@ -20,13 +23,22 @@ namespace MobileBff.Models.Shared.GetAccount
 
         [JsonPropertyName("value_list")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string[]? ValueList { get; }
+        public List<string>? ValueList { get; }
 
         [JsonPropertyName("action")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? Action { get; }
 
-        public ItemModel(string title, string value, string action)
+        [JsonIgnore]
+        public bool IsPartialResponse
+        {
+            get
+            {
+                return Value == null && (ValueList == null || ValueList.Any());
+            }
+        }
+
+        public ItemModel(string title, string? value, string action)
         {
             Type = ItemTypeActionableKeyValue;
             Title = title;
@@ -34,18 +46,18 @@ namespace MobileBff.Models.Shared.GetAccount
             Action = action;
         }
 
-        public ItemModel(string title, string value)
+        public ItemModel(string title, string? value)
         {
             Type = ItemTypeKeyValue;
             Title = title;
             Value = value;
         }
 
-        public ItemModel(string title, string[] valueList)
+        public ItemModel(string title, string?[] valueList)
         {
             Type = ItemTypeKeyValueList;
             Title = title;
-            ValueList = valueList;
+            ValueList = valueList.Where(x => x != null).Select(x => x!).ToList();
         }
     }
 }

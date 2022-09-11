@@ -1,4 +1,6 @@
 ﻿using MobileBff.Models.Corporate.GetAccount;
+using MobileBff.Models.Corporate.GetAccountFutureEvents;
+using MobileBff.Models.Corporate.GetAccountReservedAmounts;
 using MobileBff.Models.Corporate.GetAccounts;
 using MobileBff.Models.Corporate.GetAccountTransactions;
 
@@ -16,5 +18,15 @@ namespace MobileBff.Services
             string accountId,
             string? paginatingKey,
             string? paginatingSize);
+
+        Task<CorporateGetAccountFutureEventsResponseModel> GetAccountFutureEvents(
+            string organizationId,
+            string jwtAssertion,
+            string accountId);
+
+        Task<CorporateGetAccountReservedAmountsResponseModel> GetAccountReservedAmounts(
+            string organizationId,
+            string jwtAssertion,
+            string accountId);
     }
 }

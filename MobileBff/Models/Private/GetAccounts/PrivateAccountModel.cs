@@ -12,7 +12,7 @@ namespace MobileBff.Models.Private.GetAccounts
 
         public PrivateAccountModel(Account account) : base(account)
         {
-            if (account.Product.ProductCode == Constants.ProductCodes.IskDepositAccounts)
+            if (account.Product?.ProductCode == Constants.ProductCodes.IskDepositAccounts)
             {
                 HideInOverview = true;
             }

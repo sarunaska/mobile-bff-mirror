@@ -1,5 +1,5 @@
 ﻿using A3SClient.Models;
-using MobileBff.Models;
+using MobileBff;
 
 namespace Tests.ResponseProviders
 {
@@ -40,6 +40,25 @@ namespace Tests.ResponseProviders
                 Data = new Data
                 {
                     UserCustomers = userCustomers.ToArray()
+                }
+            };
+        }
+
+        public static GetUserCustomersResponse CreateGetUserCustomersResponse(string[] userIds)
+        {
+            var userCustomers = userIds
+                .Select(userId => new UserCustomer
+                    {
+                        PublicIdentifier = userId,
+                        AuthorizationScope = new[] { Constants.AuthorizationScopes.Private, "Test AuthorizationScope" }
+                    })
+                .ToArray();
+
+            return new GetUserCustomersResponse
+            {
+                Data = new Data
+                {
+                    UserCustomers = userCustomers
                 }
             };
         }

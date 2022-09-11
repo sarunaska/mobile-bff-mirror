@@ -1,20 +1,22 @@
 ﻿using System.Text.Json.Serialization;
 using AdapiClient.Models;
+using MobileBff.Attributes;
 
 namespace MobileBff.Models.Corporate.GetAccounts
 {
     public class CorporateAccountGroupModel
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string? Currency { get; set; }
+        public string? Currency { get; }
 
+        [BffRequired]
         [JsonPropertyName("accounts")]
-        public CorporateAccountModel[] Accounts { get; set; }
+        public List<CorporateAccountModel>? Accounts { get; }
 
-        public CorporateAccountGroupModel(string currency, IEnumerable<Account> accounts)
+        public CorporateAccountGroupModel(string? currency, IEnumerable<Account> accounts)
         {
-            Currency = currency == Constants.Currencies.SEK ? null : currency;
-            Accounts = accounts.Select(account => new CorporateAccountModel(account)).ToArray();
+            Currency = currency;
+            Accounts = accounts.Select(account => new CorporateAccountModel(account)).ToList();
         }
     }
 }

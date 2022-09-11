@@ -1,24 +1,27 @@
 ﻿using System.Text.Json.Serialization;
 using AdapiClient.Models;
+using MobileBff.Attributes;
 using MobileBff.Resources;
 
 namespace MobileBff.Models.Shared.GetAccountTransactions
 {
     public class TypeModel
     {
+        [BffRequired]
         [JsonPropertyName("code")]
-        public string Code { get; }
+        public string? Code { get; }
 
+        [BffRequired]
         [JsonPropertyName("text")]
-        public string Text { get; }
+        public string? Text { get; }
 
-        public TypeModel(BankTransactionCode bankTransactionCode, TransactionType transactionType)
+        public TypeModel(BankTransactionCode? bankTransactionCode, TransactionType transactionType)
         {
-            Code = bankTransactionCode.EntryType;
+            Code = bankTransactionCode?.EntryType;
             Text = GetTransationTypeName(transactionType);
         }
 
-        private static string GetTransationTypeName(TransactionType transactionType)
+        private static string? GetTransationTypeName(TransactionType transactionType)
         {
             switch (transactionType)
             {
@@ -39,7 +42,7 @@ namespace MobileBff.Models.Shared.GetAccountTransactions
                 case TransactionType.Other:
                     return Titles.TransactionType_Other;
                 default:
-                    throw new Exception($"Unknown transaction type {transactionType}");
+                    return null;
             }
         }
     }

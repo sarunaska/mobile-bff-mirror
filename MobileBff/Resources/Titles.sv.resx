@@ -141,6 +141,42 @@
   <data name="Account_Details" xml:space="preserve">
     <value>Detaljer</value>
   </data>
+  <data name="FutureEventDetailType_EInvoice" xml:space="preserve">
+    <value>E-faktura</value>
+  </data>
+  <data name="FutureEventDetailType_Fee" xml:space="preserve">
+    <value>Avgift</value>
+  </data>
+  <data name="FutureEventDetailType_Incomming" xml:space="preserve">
+    <value>Inkommande</value>
+  </data>
+  <data name="FutureEventDetailType_InternationalPayment" xml:space="preserve">
+    <value>Utlandsbetalning</value>
+  </data>
+  <data name="FutureEventDetailType_LoanPayment" xml:space="preserve">
+    <value>Lånebetalning</value>
+  </data>
+  <data name="FutureEventDetailType_Other" xml:space="preserve">
+    <value>Övrigt</value>
+  </data>
+  <data name="FutureEventDetailType_Payment" xml:space="preserve">
+    <value>Betalning</value>
+  </data>
+  <data name="FutureEventDetailType_ProcessingNewEvent" xml:space="preserve">
+    <value>Ny händelse bearbetas</value>
+  </data>
+  <data name="FutureEventDetailType_RecurringTransfer" xml:space="preserve">
+    <value>Stående överföring</value>
+  </data>
+  <data name="FutureEventDetailType_Salary" xml:space="preserve">
+    <value>Lön</value>
+  </data>
+  <data name="FutureEventDetailType_Transfer" xml:space="preserve">
+    <value>Överföring</value>
+  </data>
+  <data name="FutureEventDetailType_Unknown" xml:space="preserve">
+    <value>Okänd</value>
+  </data>
   <data name="TransactionType_BankgiroDeposit" xml:space="preserve">
     <value>Bankgiroinbetalning</value>
   </data>

@@ -1,7 +1,6 @@
 ﻿using A3SClient.Configuration;
 using A3SClient.HttpClients;
 using A3SClient.Models;
-using A3SClient.Utilities;
 using Newtonsoft.Json;
 
 namespace A3SClient
@@ -17,7 +16,7 @@ namespace A3SClient
             this.a3sHttpClient = a3sHttpClient;
         }
 
-        public async Task<GetUserCustomersResponse> GetUserCustomers(
+        public async Task<GetUserCustomersResponse?> GetUserCustomers(
             string userId,
             string jwtAssertion)
         {
@@ -31,14 +30,12 @@ namespace A3SClient
                     } 
                 }";
 
-            var convertedUserId = SebCustomerNumberHelper.ConvertToTrimmedSebCustomerNumber(userId);
-
             var graphQlQuery = new
             {
                 query = query,
                 variables = new
                 {
-                    userId = convertedUserId
+                    userId = userId
                 }
             };
 

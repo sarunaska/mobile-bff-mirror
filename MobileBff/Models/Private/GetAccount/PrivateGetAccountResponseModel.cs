@@ -1,29 +1,25 @@
 ﻿using System.Text.Json.Serialization;
 using AdapiClient.Endpoints.GetAccount;
+using MobileBff.Attributes;
+using MobileBff.Models.Shared.GetAccount;
+using SebCsClient.Models;
 
 namespace MobileBff.Models.Private.GetAccount
 {
-    public class PrivateGetAccountResponseModel
+    public class PrivateGetAccountResponseModel : GetAccountResponseModel, IPartialResponseModel
     {
-        public PrivateGetAccountResponseModel(GetAccountResult result)
+        [BffRequired]
+        [JsonPropertyName("details")]
+        public List<PrivateDetailModel>? Details { get; }
+
+        public PrivateGetAccountResponseModel(GetAccountResult? result, AccountOwner? accountOwner) : base(result)
         {
-            RetrievedDateTime = result.RetrievedDateTime;
-
-            ResourceId = result.Account.Identifications.ResourceId;
-
-            Details = new[]
+            Details = result?.Account == null
+                ? null
+                : new List<PrivateDetailModel>
             {
-                new PrivateDetailModel(result.Account)
+                new PrivateDetailModel(result.Account, accountOwner)
             };
         }
-
-        [JsonPropertyName("retrieved_date_time")]
-        public DateTime RetrievedDateTime { get; }
-
-        [JsonPropertyName("resource_id")]
-        public string ResourceId { get; }
-
-        [JsonPropertyName("details")]
-        public PrivateDetailModel[] Details { get; }
     }
 }

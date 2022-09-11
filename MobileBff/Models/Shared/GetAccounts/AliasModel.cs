@@ -6,10 +6,10 @@ namespace MobileBff.Models.Shared.GetAccounts
     public class AliasModel
     {
         [JsonPropertyName("type")]
-        public string Type { get; }
+        public string? Type { get; }
 
         [JsonPropertyName("id")]
-        public string Id { get; }
+        public string? Id { get; }
 
         public AliasModel(Alias alias)
         {

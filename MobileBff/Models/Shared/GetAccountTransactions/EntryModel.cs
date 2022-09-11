@@ -1,28 +1,37 @@
 ﻿using System.Text.Json.Serialization;
 using AdapiClient.Models;
+using MobileBff.Attributes;
+using MobileBff.ExtensionMethods;
 
 namespace MobileBff.Models.Shared.GetAccountTransactions
 {
     public class EntryModel
     {
+        [BffRequired]
         [JsonPropertyName("transaction_id")]
-        public string TransactionId { get; }
+        public string? TransactionId { get; }
 
+        [BffRequired]
         [JsonPropertyName("value_date")]
-        public string ValueDate { get; }
+        public string? ValueDate { get; }
 
+        [BffRequired]
         [JsonPropertyName("booking_date")]
-        public string BookingDate { get; }
+        public string? BookingDate { get; }
 
+        [BffRequired]
         [JsonPropertyName("amount")]
-        public string Amount { get; }
+        public decimal? Amount { get; }
 
+        [BffRequired]
         [JsonPropertyName("booked_balance")]
-        public string BookedBalance { get; }
+        public decimal? BookedBalance { get; }
 
+        [BffRequired]
         [JsonPropertyName("currency")]
-        public string Currency { get; }
+        public string? Currency { get; }
 
+        [BffRequired]
         [JsonPropertyName("message")]
         public string? Message { get; }
 
@@ -38,11 +47,11 @@ namespace MobileBff.Models.Shared.GetAccountTransactions
             TransactionId = bookingEntry.TransactionId;
             ValueDate = bookingEntry.ValueDate;
             BookingDate = bookingEntry.BookingDate;
-            Amount = bookingEntry.TransactionAmount.Amount;
-            BookedBalance = bookingEntry.BookedBalance.Amount;
-            Currency = bookingEntry.TransactionAmount.Currency;
+            Amount = bookingEntry.TransactionAmount?.Amount?.ToBankingDecimal();
+            BookedBalance = bookingEntry.BookedBalance?.Amount?.ToBankingDecimal();
+            Currency = bookingEntry.TransactionAmount?.Currency;
 
-            var transactionType = GetTransactionType(bookingEntry.BankTransactionCode.EntryType);
+            var transactionType = GetTransactionType(bookingEntry.BankTransactionCode?.EntryType);
 
             Type = new TypeModel(bookingEntry.BankTransactionCode, transactionType);
 
@@ -53,7 +62,7 @@ namespace MobileBff.Models.Shared.GetAccountTransactions
             Links = bookingEntry.Links == null ? null : new LinksModel(bookingEntry.Links);
         }
 
-        private static TransactionType GetTransactionType(string transactionTypeCode)
+        private static TransactionType GetTransactionType(string? transactionTypeCode)
         {
             switch (transactionTypeCode)
             {

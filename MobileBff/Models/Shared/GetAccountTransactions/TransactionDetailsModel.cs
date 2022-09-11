@@ -8,9 +8,9 @@ namespace MobileBff.Models.Shared.GetAccountTransactions
         [JsonPropertyName("href")]
         public string? Href { get; }
 
-        public TransactionDetailsModel(TransactionDetails transactionDetails)
+        public TransactionDetailsModel(TransactionDetails? transactionDetails)
         {
-            Href = transactionDetails.Href;
+            Href = transactionDetails?.Href;
         }
     }
 }

@@ -133,6 +133,114 @@ namespace MobileBff.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to E-invoice.
+        /// </summary>
+        public static string FutureEventDetailType_EInvoice {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_EInvoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fee.
+        /// </summary>
+        public static string FutureEventDetailType_Fee {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_Fee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incoming.
+        /// </summary>
+        public static string FutureEventDetailType_Incomming {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_Incomming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to International payment.
+        /// </summary>
+        public static string FutureEventDetailType_InternationalPayment {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_InternationalPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loan payment.
+        /// </summary>
+        public static string FutureEventDetailType_LoanPayment {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_LoanPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string FutureEventDetailType_Other {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment.
+        /// </summary>
+        public static string FutureEventDetailType_Payment {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_Payment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Processing new event.
+        /// </summary>
+        public static string FutureEventDetailType_ProcessingNewEvent {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_ProcessingNewEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recurring transfer.
+        /// </summary>
+        public static string FutureEventDetailType_RecurringTransfer {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_RecurringTransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salary.
+        /// </summary>
+        public static string FutureEventDetailType_Salary {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_Salary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer.
+        /// </summary>
+        public static string FutureEventDetailType_Transfer {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_Transfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string FutureEventDetailType_Unknown {
+            get {
+                return ResourceManager.GetString("FutureEventDetailType_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bankgiro deposit.
         /// </summary>
         public static string TransactionType_BankgiroDeposit {

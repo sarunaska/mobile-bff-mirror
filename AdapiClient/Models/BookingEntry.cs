@@ -1,19 +1,17 @@
-﻿#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace AdapiClient.Models
 {
     public class BookingEntry
     {
-        public string TransactionId { get; set; }
-        public string ExternalId { get; set; }
-        public string ValueDate { get; set; }
-        public string BookingDate { get; set; }
-        public string Message1 { get; set; }
-        public BankTransactionCode BankTransactionCode { get; set; }
-        public TransactionAmount TransactionAmount { get; set; }
-        public BookedBalance BookedBalance { get; set; }
+        public string? TransactionId { get; set; }
+        public string? ExternalId { get; set; }
+        public string? ValueDate { get; set; }
+        public string? BookingDate { get; set; }
+        public string? Message1 { get; set; }
+        public BankTransactionCode? BankTransactionCode { get; set; }
+        public TransactionAmount? TransactionAmount { get; set; }
+        public BookedBalance? BookedBalance { get; set; }
         public CardBookingEntryDetails? CardBookingEntryDetails { get; set; }
 
         [JsonPropertyName("_links")]

@@ -23,17 +23,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ocelot" Version="18.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.22.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AdapiClient\AdapiClient.csproj" />
-    <ProjectReference Include="..\A3SClient\A3SClient.csproj" />  </ItemGroup>
+    <ProjectReference Include="..\A3SClient\A3SClient.csproj" />
+    <ProjectReference Include="..\SebCsClient\SebCsClient.csproj" />  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Resources\Titles.Designer.cs">

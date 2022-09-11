@@ -1,6 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 using AdapiClient.Models;
+using MobileBff.Attributes;
 using MobileBff.Models.Shared.GetAccounts;
+using SebCsClient.Models;
 
 namespace MobileBff.Models.Private.GetAccounts
 {
@@ -10,22 +12,23 @@ namespace MobileBff.Models.Private.GetAccounts
         [JsonPropertyName("owner")]
         public OwnerModel? Owner { get; set; }
 
+        [BffRequired]
         [JsonPropertyName("accounts")]
-        public PrivateAccountModel[] Accounts { get; set; }
+        public List<PrivateAccountModel>? Accounts { get; set; }
 
-        public PrivateAccountGroupModel(string accountsOwnerUserId, IEnumerable<Account> accounts, bool addOwnerToResponse)
+        public PrivateAccountGroupModel(AccountOwner? accountOwner, Account[]? accounts)
         {
-            if (addOwnerToResponse)
+            if (accountOwner != null)
             {
-                Owner = new OwnerModel(accountsOwnerUserId, null);
+                Owner = new OwnerModel(accountOwner);
             }
 
-            accounts = accounts
+            accounts = accounts?
                 .Where(x => x.Currency == Constants.Currencies.SEK)
-                .Where(x => x.Product.ProductCode != Constants.ProductCodes.Ips)
+                .Where(x => x.Product?.ProductCode != Constants.ProductCodes.Ips)
                 .ToArray();
 
-            Accounts = accounts.Select(account => new PrivateAccountModel(account)).ToArray();
+            Accounts = accounts?.Select(account => new PrivateAccountModel(account)).ToList();
         }
     }
 }

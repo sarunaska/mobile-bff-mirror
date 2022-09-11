@@ -1,6 +1,8 @@
 ﻿using AdapiClient.Builders;
 using AdapiClient.Configuration;
 using AdapiClient.Endpoints.GetAccount;
+using AdapiClient.Endpoints.GetAccountFutureEvents;
+using AdapiClient.Endpoints.GetAccountReservedAmounts;
 using AdapiClient.Endpoints.GetAccounts;
 using AdapiClient.Endpoints.GetAccountTransactions;
 using AdapiClient.HttpClients;
@@ -19,7 +21,7 @@ namespace AdapiClient
             this.adapiHttpClient = adapiHttpClient;
         }
 
-        public async Task<GetAccountsResponse> GetAccounts(
+        public async Task<GetAccountsResponse?> GetAccounts(
             string organizationId,
             string jwtAssertion)
         {
@@ -28,7 +30,7 @@ namespace AdapiClient
             return await adapiHttpClient.MakeGetRequest<GetAccountsResponse>(requestUri, organizationId, jwtAssertion);
         }
 
-        public async Task<GetAccountResponse> GetAccount(
+        public async Task<GetAccountResponse?> GetAccount(
             string organizationId,
             string jwtAssertion,
             string accountId)
@@ -38,7 +40,7 @@ namespace AdapiClient
             return await adapiHttpClient.MakeGetRequest<GetAccountResponse>(requestUri, organizationId, jwtAssertion);
         }
 
-        public async Task<GetAccountTransactionsResponse> GetAccountTransactions(
+        public async Task<GetAccountTransactionsResponse?> GetAccountTransactions(
             string organizationId,
             string jwtAssertion,
             string accountId,
@@ -50,6 +52,28 @@ namespace AdapiClient
                 .Build();
 
             return await adapiHttpClient.MakeGetRequest<GetAccountTransactionsResponse>(requestUri, organizationId, jwtAssertion);
+        }
+
+        public async Task<GetAccountFutureEventsResponse?> GetAccountFutureEvents(
+            string organizationId,
+            string jwtAssertion,
+            string accountId)
+        {
+            var requestUri = new AdapiUriBuilder(configuration.BaseUrl, $"accounts/{accountId}/futureevents")
+                .Build();
+
+            return await adapiHttpClient.MakeGetRequest<GetAccountFutureEventsResponse>(requestUri, organizationId, jwtAssertion);
+        }
+
+        public async Task<GetAccountReservedAmountsResponse?> GetAccountReservedAmounts(
+            string organizationId,
+            string jwtAssertion,
+            string accountId)
+        {
+            var requestUri = new AdapiUriBuilder(configuration.BaseUrl, $"accounts/{accountId}/reservedamounts")
+                .Build();
+
+            return await adapiHttpClient.MakeGetRequest<GetAccountReservedAmountsResponse>(requestUri, organizationId, jwtAssertion);
         }
     }
 }
